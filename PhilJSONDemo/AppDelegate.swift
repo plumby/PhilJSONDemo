@@ -41,6 +41,71 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    
+    //"http://ianplumb.com/CustomerServiceProject/proxy/JSONCustomer.php?customerID="
+
+    var serviceURL : String
+    {
+        get
+        {
+            return getSetting("service_url", defValue: "http://ianplumb.com/CustomerServiceProject/proxy/")
+        }
+        set
+        {
+            setSetting(newValue, key: "service_URL")
+        }
+    }
+    
+    var searchCommand : String
+    {
+    get
+    {
+        return getSetting("search_command", defValue: "JSONCustomer.php?customerID=")
+    }
+    set
+    {
+        setSetting(newValue, key: "search_command")
+    }
+    }
+    
+    
+    var updateCommand : String
+    {
+    get
+    {
+        return getSetting("update_command", defValue: "JSONCustomer.php")
+    }
+    set
+    {
+        setSetting(newValue, key: "update_command")
+    }
+    }
+    
+    
+    
+    
+    func getSetting(key:String,defValue:String)->String
+    {
+        var val : AnyObject!=NSUserDefaults.standardUserDefaults().objectForKey(key)
+        
+        if val
+        {
+            return val! as String
+        }
+        else
+        {
+            setSetting(defValue, key: key)
+            return defValue
+        }
+    }
+    
+    func setSetting(value:String,key:String)
+    {
+        NSUserDefaults.standardUserDefaults().setObject(value, forKey:key)
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+
 
 }
 
